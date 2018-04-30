@@ -2,8 +2,8 @@
 #include <iostream>
 using namespace std;
 
-const float pDeath;
-const float pMut;
+const float Individu::pDeath=0.2;
+const float Individu::pMut=0.1;
 
 //Constructors
 //Destructors
