@@ -13,6 +13,10 @@ class Individu {
 
    //Attributs
 
+      static const float Raa_;
+      static const float Rab_;
+      static const float Rbb_;
+      static const float Rbc_;
       static const float pDeath;
       static const float pMut;
       static const float fitnessMIN;
@@ -28,14 +32,20 @@ class Individu {
       Individu(float fitness,string genotype,vector<Metabolite>phenotype_);
 
    //Destructors
-      ~Individu();
+      //~Individu();
 
    //Getters
+      string genotype();
+      float Raa() const;
+      float Rab() const;
+      float Rbb() const;
+      float Rbc() const;
 
    //Setters
 
    //Methods
       void mutation();
+      void reseauMetabolite(float out);
  
 };
 

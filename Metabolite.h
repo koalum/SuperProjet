@@ -13,18 +13,21 @@ class Metabolite {
 
       float D_;
       char type_;
+      float concentration_;
 
    public :
 
    //Constructors
-      Metabolite(float D, char type);
+      Metabolite(float D, char type, float concentration);
+      Metabolite();
 
    //Destructors
       //~Metabolite();
 
    //Getters
-
+      float concentration();
    //Setters
+      void concentration(float concentration);
 
    //Methods
  
