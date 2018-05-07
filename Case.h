@@ -26,6 +26,8 @@ class Case {
       //~Case();
 
    //Getters
+      vector<Metabolite> cExtra();
+      Individu indi();
 
    //Setters
 

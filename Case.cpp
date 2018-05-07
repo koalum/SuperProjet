@@ -7,6 +7,15 @@ using namespace std;
 Case::Case(int x, int y, Individu indi, vector<Metabolite> cExtra):x_(x),y_(y),indi_(indi),cExtra_(cExtra){
 }
 
+//Getters
+vector<Metabolite> Case::cExtra(){
+   return cExtra_;
+}
+
+Individu Case::indi(){
+   return indi_;
+}
+
 //Destructors
 
 //Méthodes

@@ -36,6 +36,7 @@ class Individu {
 
    //Getters
       string genotype();
+      vector<Metabolite> phenotype();
       float Raa() const;
       float Rab() const;
       float Rbb() const;

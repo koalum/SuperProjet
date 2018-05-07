@@ -23,6 +23,10 @@ string Individu::genotype(){
    return genotype_;
 }
 
+vector<Metabolite> Individu::phenotype(){
+   return phenotype_;
+}
+
 float Individu::Raa() const{
    return Raa_;
 }
