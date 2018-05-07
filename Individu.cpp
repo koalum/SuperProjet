@@ -8,7 +8,7 @@ const float Individu::Rab_=0.1;
 const float Individu::Rbb_=0.1;
 const float Individu::Rbc_=0.1;
 const float Individu::pDeath=0.2;
-const float Individu::pMut=0.1;
+const float Individu::pMut=0.5;
 const float Individu::fitnessMIN=1;
 
 //Constructors
@@ -48,10 +48,10 @@ void Individu::mutation(){
    nbAleatoire = (float)rand() / (float)RAND_MAX;
    if (nbAleatoire<pMut){
       if (genotype_=="Ga"){
-         genotype_=="Gb";
+         genotype_="Gb";
       }
       else {
-         genotype_=="Ga";
+         genotype_="Ga";
       }
    }
 }

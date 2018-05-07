@@ -20,10 +20,10 @@ class Case {
    public :
 
    //Constructors
-      Case(int x, int y, Individu indi, float cExtra);
+      Case(int x, int y, Individu indi, vector<Metabolite> cExtra);
 
    //Destructors
-      ~Case();
+      //~Case();
 
    //Getters
 

@@ -4,7 +4,7 @@ using namespace std;
 
 
 //Constructors
-Case::Case(int x, int y, Individu indi, float cExtra):x_(x),y_(y),indi_(indi),cExtra_(cExtra){
+Case::Case(int x, int y, Individu indi, vector<Metabolite> cExtra):x_(x),y_(y),indi_(indi),cExtra_(cExtra){
 }
 
 //Destructors
