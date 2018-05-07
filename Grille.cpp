@@ -2,9 +2,14 @@
 #include <iostream>
 using namespace std;
 
-const float Grille::W=15;
-const float Grille::H=10;
+const int Grille::W_=15;
+const int Grille::H_=10;
 
 //Constructors
+
+Grille::Grille () {
+   
+}
+
 //Destructors
 //Méthodes
