@@ -29,7 +29,7 @@ class Individu {
 
    //Constructors
       Individu();
-      Individu(float fitness,string genotype,vector<Metabolite>phenotype_);
+      Individu(string genotype,vector<Metabolite>phenotype_);
 
    //Destructors
       //~Individu();
@@ -41,12 +41,15 @@ class Individu {
       float Rab() const;
       float Rbb() const;
       float Rbc() const;
+      float fitness();
 
    //Setters
+      void setFitness(float w);      
 
    //Methods
       void mutation();
       void reseauMetabolite(float out);
+      void seuilMinimum();
  
 };
 

@@ -9,10 +9,23 @@ const float Individu::Rbb_=0.1;
 const float Individu::Rbc_=0.1;
 const float Individu::pDeath=0.2;
 const float Individu::pMut=0.5;
-const float Individu::fitnessMIN=1;
+const float Individu::fitnessMIN=0.001;
 
 //Constructors
-Individu::Individu(float fitness,string genotype,vector<Metabolite>phenotype):fitness_(fitness),genotype_(genotype),phenotype_(phenotype){
+Individu::Individu(){
+   genotype_ = "Ga";
+   Metabolite met;
+   phenotype_={met, met, met};
+}
+
+Individu::Individu(string genotype,vector<Metabolite>phenotype):genotype_(genotype),phenotype_(phenotype){
+   if (genotype_ == "Ga"){
+      fitness_ = phenotype_[1].concentration();
+   }
+   else {
+      fitness_ = phenotype_[2].concentration();
+   }
+   seuilMinimum();
 }
 
 //Destructors
@@ -43,7 +56,14 @@ float Individu::Rbc() const{
    return Rbc_;
 }
 
+float Individu::fitness(){
+   return fitness_;
+}
 
+//Setters
+void Individu::setFitness(float w){
+   fitness_=w;
+}
 
 //Méthodes
 void Individu::mutation(){
@@ -71,5 +91,11 @@ void Individu::reseauMetabolite(float out){
    }
 }
 
+void Individu::seuilMinimum(){
+   if (fitness_<fitnessMIN){
+      fitness_=.0;
+   }
+}
+ 
 
    

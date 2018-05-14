@@ -1,7 +1,7 @@
 #ifndef GRILLE_H
 #define GRILLE_H
 #include <string>
-#include<set>
+#include<vector>
 #include "Case.h"
 using namespace std;
 
@@ -15,21 +15,21 @@ class Grille {
 
       static const int W_;
       static const int H_;
-      set<Case>maMap_;
+      vector<vector<Case>>myGrid_;
+      int nbS_; //nombre d'individus S
+      int nbL_;
 
    public :
 
    //Constructors
       Grille();
 
-   //Destructors
-      ~Grille();
-
    //Getters
 
    //Setters
 
    //Methods
+      void afficheGrille();
  
 };
 
