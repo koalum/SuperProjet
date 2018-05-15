@@ -51,7 +51,6 @@ int main() {
    Grille grille1 = Grille();
    grille1.afficheGrille();
 
-
    return 0;
 }
 

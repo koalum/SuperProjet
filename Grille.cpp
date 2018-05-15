@@ -5,6 +5,7 @@ using namespace std;
 
 const int Grille::W_=4;
 const int Grille::H_=4;
+const float Grille::D=0.1;
 
 //Constructors
 
@@ -62,6 +63,7 @@ void Grille::afficheGrille(){
       }  
       cout<<" "<<endl;
    }
+}
 
    //AUTRE SOLUTION AVEC ITERATEUR
    /*int iter;
@@ -76,7 +78,33 @@ void Grille::afficheGrille(){
       }  
    }*/
 
+void Grille::diffusionGenerale(){
+   for(int i=0; i<H_; i++){
+      for(int j=0; j<W_; j++){
+         diffusion(i,j);
+      }
+   }
 }
 
+void Grille::diffusion(int x,int y){
+   vector<Metabolite>meta = myGrid_[x][y].cExtra();
+   vector<Metabolite>metanew = meta;
+   vector<Metabolite>meta2;
+   for (int i=0; i<3; i++){
+      for (int j=0; j<3; j++){
+         for (int k=0; k<3; k++){
+            meta2 = myGrid_[x+i][y+j].cExtra();
+            metanew[k].concentration(metanew[k].concentration()+D*meta2[k].concentration());
+         }
+      }
+   }
+   for (int k=0; k<3; k++){
+      metanew[k].concentration(metanew[k].concentration()-9*D*meta[k].concentration());
+   }
+}
+   
+   
+   
+   
 
 

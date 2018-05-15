@@ -15,6 +15,7 @@ class Grille {
 
       static const int W_;
       static const int H_;
+      static const float D;
       vector<vector<Case>>myGrid_;
       int nbS_; //nombre d'individus S
       int nbL_;
@@ -30,6 +31,8 @@ class Grille {
 
    //Methods
       void afficheGrille();
+      void diffusionGenerale();
+      void diffusion(int x,int y);
  
 };
 

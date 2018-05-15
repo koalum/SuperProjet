@@ -63,6 +63,7 @@ float Individu::fitness(){
 //Setters
 void Individu::setFitness(float w){
    fitness_=w;
+   seuilMinimum();
 }
 
 //Méthodes
