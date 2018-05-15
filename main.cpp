@@ -10,6 +10,8 @@ using namespace std;
 int main() {
 
    //TESTS
+
+   //TEST INDIVIDU
    cout<<"notre super projet avance trop bien!"<<endl;
    Metabolite metA(0.1,'A',25.0);
    Metabolite metB(0.1,'B',-20.0);
@@ -21,7 +23,7 @@ int main() {
    //bac1.mutation();
    cout<<bac1.genotype()<<endl;
  
-   
+   //TEST CASE
    Case case1 = Case(1,1,bac1,vec1);
    vector<Metabolite>monVec = case1.cExtra();
    cout<<"A : "<< monVec[0].concentration()<<endl;
@@ -43,6 +45,11 @@ int main() {
    cout <<"A dans indi : "<<monVecPhen2[0].concentration()<<endl;
    cout <<"B dans indi : "<<monVecPhen2[1].concentration()<<endl;
    cout <<"C dans indi : "<<monVecPhen2[2].concentration()<<endl;
+
+   //TEST GRILLE
+   cout <<"TEST GRILLE: "<< endl;
+   Grille grille1 = Grille();
+   grille1.afficheGrille();
 
 
    return 0;
