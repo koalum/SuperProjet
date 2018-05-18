@@ -94,7 +94,21 @@ void Grille::diffusion(int x,int y){
    for (int i=0; i<3; i++){
       for (int j=0; j<3; j++){
          for (int k=0; k<3; k++){
-            meta2 = myGrid_[x+i][y+j].cExtra();
+            int a = x+i-1;
+            int b = y=j-1;
+            if (a<0){
+              a = H_-1;
+            }
+            else if (a>(H_-1)){
+              a=0;
+            }
+            if (b<0){
+              b = W_-1;
+            }
+            else if (b>(W_-1)){
+              b=0;
+            }
+            meta2 = myGrid_[a][b].cExtra();
             metanew[k].concentration(metanew[k].concentration()+D*meta2[k].concentration());
          }
       }
