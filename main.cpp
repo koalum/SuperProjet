@@ -51,6 +51,9 @@ int main() {
    Grille grille1 = Grille();
    grille1.afficheGrille();
 
+   //TEST DIFFUSION
+   grille1.diffusionGenerale();
+
    return 0;
 }
 
