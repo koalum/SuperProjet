@@ -2,6 +2,7 @@
 #include <iostream>
 #include <time.h>
 using namespace std;
+//ceci est un commentaire
 
 const int Grille::W_=4;
 const int Grille::H_=4;

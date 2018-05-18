@@ -4,6 +4,7 @@
 #include"Metabolite.h"
 #include <vector>
 using namespace std;
+//Commentaire de Juliette
 
 class Individu {
 
