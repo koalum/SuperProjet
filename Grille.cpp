@@ -117,9 +117,44 @@ void Grille::diffusion(int x,int y){
       metanew[k].concentration(metanew[k].concentration()-9*D*meta[k].concentration());
    }
 }
-   
-   
-   
-   
 
+void Grille::pasDeTemps(){
+  diffusionGenerale(); 
+  mortAleatoireGenerale();
+  //competitionGenerale();
+  //reseauMetaboliqueGenerale(); //que si individu pas vivant=false
+}
+   
+void Grille::mortAleatoireGenerale(){ 
+   for(int i=0; i<H_; i++){
+      for(int j=0; j<W_; j++){
+         myGrid_[i][j].mortAleatoire();
+      }
+   }
+}
+   
+void Grille::competitionGenerale(){ 
+   for(int i=0; i<H_; i++){
+      for(int j=0; j<W_; j++){ 
+         Case maCase = myGrid_[i][j];  
+         if (maCase.vivant()==false){
+            competition(i,j);
+         }
+      }
+   }
+}
 
+void Grille::competition(int x, int y){
+   //???
+   //case.vivant=true !!
+}
+
+void Grille::reseauMetaboliteGenerale(){ 
+   for(int i=0; i<H_; i++){
+      for(int j=0; j<W_; j++){ 
+         if (myGrid_[i][j].vivant() == true){
+            myGrid_[i][j].voie();
+         }
+      }
+   }
+}

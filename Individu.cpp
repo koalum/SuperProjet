@@ -7,7 +7,7 @@ const float Individu::Raa_=0.1;
 const float Individu::Rab_=0.1;
 const float Individu::Rbb_=0.1;
 const float Individu::Rbc_=0.1;
-const float Individu::pDeath=0.2;
+const float Individu::pDeath_=0.2;
 const float Individu::pMut=0.5;
 const float Individu::fitnessMIN=0.001;
 
@@ -54,6 +54,10 @@ float Individu::Rbb() const{
 
 float Individu::Rbc() const{
    return Rbc_;
+}
+
+float Individu::pDeath() const{
+  return pDeath_;
 }
 
 float Individu::fitness(){

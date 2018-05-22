@@ -33,6 +33,11 @@ class Grille {
       void afficheGrille();
       void diffusionGenerale();
       void diffusion(int x,int y);
+      void pasDeTemps();
+      void mortAleatoireGenerale();
+      void competitionGenerale();
+      void competition(int x, int y);
+      void reseauMetaboliteGenerale();
  
 };
 

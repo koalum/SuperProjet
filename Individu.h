@@ -20,7 +20,7 @@ class Individu {
       static const float Rab_;
       static const float Rbb_;
       static const float Rbc_;
-      static const float pDeath;
+      static const float pDeath_;
       static const float pMut;
       static const float fitnessMIN;
       float fitness_;
@@ -45,6 +45,7 @@ class Individu {
       float Rbb() const;
       float Rbc() const;
       float fitness();
+      float pDeath() const;
 
    //Setters
       void setFitness(float w);      

@@ -14,6 +14,7 @@ class Case {
 
       int x_;
       int y_;
+      bool vivant_; //false si l'individu meurt
       Individu indi_; 
       vector<Metabolite> cExtra_; //vecteur des concentration des métabolites, c[0]=A, c[1]=B, c[2]=C
 
@@ -28,11 +29,13 @@ class Case {
    //Getters
       vector<Metabolite> cExtra();
       Individu indi();
+      bool vivant();
 
    //Setters
 
    //Methods
       void voie();
+      void mortAleatoire();
  
 };
 

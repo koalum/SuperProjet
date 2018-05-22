@@ -53,9 +53,7 @@ int main() {
 
    //TEST DIFFUSION
    grille1.diffusionGenerale();
-   cout<<"A : "<< monVec[0].concentration()<<endl;
-   cout<<"B : "<< monVec[1].concentration()<<endl;
-   cout<<"C : "<< monVec[2].concentration()<<endl;
+
 
    return 0;
 }
