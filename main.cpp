@@ -52,8 +52,18 @@ int main() {
    grille1.afficheGrille();
 
    //TEST DIFFUSION
-   grille1.diffusionGenerale();
 
+   grille1.pasDeTemps();
+
+   map<int,int>test; 
+   test[1]=1;
+   test[2]=2;
+   test[3]=3;
+   test[4]=4;
+   test[5]=5;
+   test[6]=6;
+
+   
 
    return 0;
 }

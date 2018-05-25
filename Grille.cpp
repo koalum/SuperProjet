@@ -4,8 +4,8 @@
 using namespace std;
 //ceci est un commentaire
 
-const int Grille::W_=4;
-const int Grille::H_=4;
+const int Grille::W_=10;
+const int Grille::H_=10;
 const float Grille::D=0.1;
 
 //Constructors
@@ -56,10 +56,15 @@ void Grille::afficheGrille(){
    for(int i=0; i<H_; ++i){
       for(int j=0; j<W_; ++j){
          indi = myGrid_[i][j].indi();
-         if (indi.genotype()=="Ga"){
-            cout<<"L ";
-         } else {
-            cout <<"S ";
+         if (myGrid_[i][j].vivant()){
+            if (indi.genotype()=="Ga"){
+               cout<<"L ";
+            } else {
+               cout <<"S ";
+            }
+         }
+         else{
+            cout<<" ";
          }
       }  
       cout<<" "<<endl;
@@ -121,8 +126,8 @@ void Grille::diffusion(int x,int y){
 void Grille::pasDeTemps(){
   diffusionGenerale(); 
   mortAleatoireGenerale();
-  //competitionGenerale();
-  //reseauMetaboliqueGenerale(); //que si individu pas vivant=false
+  competitionGenerale();
+  reseauMetaboliqueGenerale(); 
 }
    
 void Grille::mortAleatoireGenerale(){ 
@@ -134,22 +139,62 @@ void Grille::mortAleatoireGenerale(){
 }
    
 void Grille::competitionGenerale(){ 
+map<int,int>cellulesMortes;
+int n=0;
    for(int i=0; i<H_; i++){
       for(int j=0; j<W_; j++){ 
          Case maCase = myGrid_[i][j];  
          if (maCase.vivant()==false){
-            competition(i,j);
+            cellulesMortes.insert(pair<int,int>(i,j));
          }
       }
    }
+   map<int,int>::iterator item = cellulesMortes.begin();
+   int randNum = rand()%(cellulesMortes.size() + 1);
+   advance( item, randNum );
 }
 
 void Grille::competition(int x, int y){
-   //???
-   //case.vivant=true !!
+   float bestFitness = .0;
+   int alpha; //coordonnés de l'individu avec la meilleure fitness
+   int beta;  //coordonnés de l'individu avec la meilleure fitness
+   bool test = false; //bool pour tester si au moins 1 vivant autour
+   for (int i=0; i<3; i++){
+      for (int j=0; j<3; j++){
+         int a = x+i-1;
+         int b = y=j-1;
+         if (a<0){
+            a = H_-1;
+         }
+         else if (a>(H_-1)){
+         a=0;
+         }
+         if (b<0){
+            b = W_-1;
+         }
+         else if (b>(W_-1)){
+            b=0;
+         }
+         Individu indi = myGrid_[a][b].indi();
+         if (myGrid_[a][b].vivant()==true && indi.fitness()>bestFitness){
+            test = true;
+            bestFitness = indi.fitness();
+            alpha = a; 
+            beta = b;
+         }
+      }
+   }
+   if (test){
+      Individu indiFille = myGrid_[alpha][beta].indi();
+      indiFille.phenotypeFille();
+      indiFille.mutation();
+      myGrid_[alpha][beta].individu(indiFille); //point vers le même truc
+      myGrid_[x][y].individu(indiFille);
+      myGrid_[x][y].vivant(true);
+   }
 }
 
-void Grille::reseauMetaboliteGenerale(){ 
+void Grille::reseauMetaboliqueGenerale(){ 
    for(int i=0; i<H_; i++){
       for(int j=0; j<W_; j++){ 
          if (myGrid_[i][j].vivant() == true){

@@ -83,6 +83,7 @@ void Individu::mutation(){
          genotype_="Ga";
       }
    }
+   resetFitness();
 }
 
 void Individu::reseauMetabolite(float out){
@@ -101,6 +102,23 @@ void Individu::seuilMinimum(){
       fitness_=.0;
    }
 }
+
+void Individu::phenotypeFille(){
+   for(int i=0; i<3; ++i){
+      float concentrationFille = phenotype_[i].concentration()/2;
+      phenotype_[i].concentration(concentrationFille);
+   }
+   resetFitness();
+}
  
+void Individu::resetFitness(){
+   if (genotype_ == "Ga"){
+      fitness_ = phenotype_[1].concentration();
+   }
+   else {
+      fitness_ = phenotype_[2].concentration();
+   }
+   seuilMinimum();
+}
 
    

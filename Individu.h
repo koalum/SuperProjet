@@ -48,12 +48,14 @@ class Individu {
       float pDeath() const;
 
    //Setters
-      void setFitness(float w);      
+      void setFitness(float w);     
 
    //Methods
       void mutation();
       void reseauMetabolite(float out);
       void seuilMinimum();
+      void phenotypeFille();
+      void resetFitness();
  
 };
 

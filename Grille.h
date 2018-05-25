@@ -2,6 +2,8 @@
 #define GRILLE_H
 #include <string>
 #include<vector>
+#include<map>
+#include<iterator>
 #include "Case.h"
 using namespace std;
 
@@ -37,7 +39,7 @@ class Grille {
       void mortAleatoireGenerale();
       void competitionGenerale();
       void competition(int x, int y);
-      void reseauMetaboliteGenerale();
+      void reseauMetaboliqueGenerale();
  
 };
 

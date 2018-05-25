@@ -32,6 +32,8 @@ class Case {
       bool vivant();
 
    //Setters
+      void vivant(bool viv);
+      void individu(Individu indi);
 
    //Methods
       void voie();

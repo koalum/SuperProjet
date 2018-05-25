@@ -22,7 +22,15 @@ bool Case::vivant(){
    return vivant_;
 }
 
-//Destructors
+//Setters
+
+void Case::vivant(bool viv){
+   vivant_ = viv;
+}
+
+void Case::individu(Individu indi){
+   indi_=indi;
+}
 
 //Méthodes
 
@@ -43,6 +51,7 @@ void Case::mortAleatoire(){
    nbAleatoire = (float)rand() / (float)RAND_MAX;
    if (nbAleatoire<indi_.pDeath()){
       vivant_ = false;
+      //MÉTHODE QUI FAIT QUE le contenu se déverse dans la case
    }
 }
 
