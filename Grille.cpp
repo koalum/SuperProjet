@@ -64,7 +64,7 @@ void Grille::afficheGrille(){
             }
          }
          else{
-            cout<<" ";
+            cout<<"X ";
          }
       }  
       cout<<" "<<endl;
@@ -139,19 +139,22 @@ void Grille::mortAleatoireGenerale(){
 }
    
 void Grille::competitionGenerale(){ 
-map<int,int>cellulesMortes;
-int n=0;
+   vector<struct celluleMorte_>cellulesMortes;
+   struct celluleMorte_ maCelluleMorte;
    for(int i=0; i<H_; i++){
       for(int j=0; j<W_; j++){ 
          Case maCase = myGrid_[i][j];  
          if (maCase.vivant()==false){
-            cellulesMortes.insert(pair<int,int>(i,j));
+            maCelluleMorte.x = i;
+            maCelluleMorte.y = j;
+            cellulesMortes.push_back(maCelluleMorte);
          }
       }
    }
-   map<int,int>::iterator item = cellulesMortes.begin();
-   int randNum = rand()%(cellulesMortes.size() + 1);
-   advance( item, randNum );
+   random_shuffle(cellulesMortes.begin(), cellulesMortes.end());
+   for(vector<struct celluleMorte_>::iterator it=cellulesMortes.begin(); it!=cellulesMortes.end(); ++it){
+      competition(it->x, it->y);
+   }
 }
 
 void Grille::competition(int x, int y){
@@ -203,3 +206,4 @@ void Grille::reseauMetaboliqueGenerale(){
       }
    }
 }
+

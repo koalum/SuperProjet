@@ -5,6 +5,7 @@
 #include<map>
 #include<iterator>
 #include "Case.h"
+#include <algorithm>
 using namespace std;
 
 class Grille {
@@ -21,6 +22,10 @@ class Grille {
       vector<vector<Case>>myGrid_;
       int nbS_; //nombre d'individus S
       int nbL_;
+      struct celluleMorte_{
+         int x;
+         int y;
+      };
 
    public :
 

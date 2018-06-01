@@ -47,12 +47,20 @@ void Case::voie(){
 
 void Case::mortAleatoire(){
    float nbAleatoire = 0;
-   srand(time(NULL));
    nbAleatoire = (float)rand() / (float)RAND_MAX;
    if (nbAleatoire<indi_.pDeath()){
       vivant_ = false;
-      //MÉTHODE QUI FAIT QUE le contenu se déverse dans la case
+      deversement(indi_);//déversement
    }
+}
+
+void Case::deversement(Individu indi){
+   vector<Metabolite>newExtra ;
+   vector<Metabolite>phen = indi.phenotype();
+   newExtra[0].concentration(phen[0].concentration() + cExtra_[0].concentration());
+   //newExtra[1].concentration(phen[1].concentration() + cExtra_[1].concentration());
+   //newExtra[2].concentration(phen[2].concentration() + cExtra_[2].concentration());
+   //cExtra_ =newExtra;
 }
 
 

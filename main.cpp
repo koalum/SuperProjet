@@ -3,12 +3,12 @@
 #include "Individu.h"
 #include "Case.h"
 #include "Grille.h"
-
+#include <algorithm>
 
 using namespace std;
 
-int main() {
-
+int main() {   
+   srand(time(NULL));
    //TESTS
 
    //TEST INDIVIDU
@@ -54,14 +54,9 @@ int main() {
    //TEST DIFFUSION
 
    grille1.pasDeTemps();
+   cout <<" "<< endl;
+   grille1.afficheGrille();
 
-   map<int,int>test; 
-   test[1]=1;
-   test[2]=2;
-   test[3]=3;
-   test[4]=4;
-   test[5]=5;
-   test[6]=6;
 
    
 

@@ -73,8 +73,8 @@ void Individu::setFitness(float w){
 //Méthodes
 void Individu::mutation(){
    float nbAleatoire = 0;
-   srand(time(NULL));
    nbAleatoire = (float)rand() / (float)RAND_MAX;
+   cout<<nbAleatoire<<endl;
    if (nbAleatoire<pMut){
       if (genotype_=="Ga"){
          genotype_="Gb";

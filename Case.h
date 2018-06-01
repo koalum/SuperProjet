@@ -38,6 +38,7 @@ class Case {
    //Methods
       void voie();
       void mortAleatoire();
+      void deversement(Individu indi);
  
 };
 
