@@ -57,7 +57,7 @@ int main() {
    cout <<" "<< endl;
    grille1.afficheGrille();
 
-
+   
    
 
    return 0;

@@ -55,12 +55,15 @@ void Case::mortAleatoire(){
 }
 
 void Case::deversement(Individu indi){
-   vector<Metabolite>newExtra ;
+   Metabolite meta1 = Metabolite();
+   Metabolite meta2 = Metabolite(0.1,'B',0.0);
+   Metabolite meta3 = Metabolite(0.1,'C',0.0);
+   vector<Metabolite>newExtra = {meta1, meta2, meta3};
    vector<Metabolite>phen = indi.phenotype();
    newExtra[0].concentration(phen[0].concentration() + cExtra_[0].concentration());
-   //newExtra[1].concentration(phen[1].concentration() + cExtra_[1].concentration());
-   //newExtra[2].concentration(phen[2].concentration() + cExtra_[2].concentration());
-   //cExtra_ =newExtra;
+   newExtra[1].concentration(phen[1].concentration() + cExtra_[1].concentration());
+   newExtra[2].concentration(phen[2].concentration() + cExtra_[2].concentration());
+   cExtra_ =newExtra;
 }
 
 
