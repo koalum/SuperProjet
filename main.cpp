@@ -23,7 +23,7 @@ int main() {
    //bac1.mutation();
    cout<<bac1.genotype()<<endl;
  
-   //TEST CASE
+   /*//TEST CASE
    Case case1 = Case(1,1,bac1,vec1);
    vector<Metabolite>monVec = case1.cExtra();
    cout<<"A : "<< monVec[0].concentration()<<endl;
@@ -44,20 +44,34 @@ int main() {
    vector<Metabolite>monVecPhen2 = bac1.phenotype();
    cout <<"A dans indi : "<<monVecPhen2[0].concentration()<<endl;
    cout <<"B dans indi : "<<monVecPhen2[1].concentration()<<endl;
-   cout <<"C dans indi : "<<monVecPhen2[2].concentration()<<endl;
+   cout <<"C dans indi : "<<monVecPhen2[2].concentration()<<endl;*/
+
 
    //TEST GRILLE
    cout <<"TEST GRILLE: "<< endl;
-   Grille grille1 = Grille();
+   Grille grille1 = Grille(20.0);
    grille1.afficheGrille();
 
    //TEST DIFFUSION
-
-   grille1.pasDeTemps();
+   
+   for (int i=0; i<500; ++i){
+      grille1.pasDeTemps();   
+   }
    cout <<" "<< endl;
    grille1.afficheGrille();
+   grille1.count();
+   cout<<grille1.nbS()<<endl;
+   cout<<grille1.nbL()<<endl;
+   cout<<grille1.nbMorts()<<endl;
 
-   
+   /*A FAIRE :
+   Commenter le code
+   Le rendre beau
+   Interface graphique
+   timer
+   récupération données
+
+   */
    
 
    return 0;

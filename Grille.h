@@ -22,6 +22,8 @@ class Grille {
       vector<vector<Case>>myGrid_;
       int nbS_; //nombre d'individus S
       int nbL_;
+      int nbMorts_;
+      float Ainit_;
       struct celluleMorte_{
          int x;
          int y;
@@ -30,9 +32,12 @@ class Grille {
    public :
 
    //Constructors
-      Grille();
+      Grille(float Ainit);
 
    //Getters
+      int nbS();
+      int nbL();
+      int nbMorts();
 
    //Setters
 
@@ -45,6 +50,9 @@ class Grille {
       void competitionGenerale();
       void competition(int x, int y);
       void reseauMetaboliqueGenerale();
+      void count();
+      void reinitialisationGenerale();
+      void simulation(int T);
  
 };
 

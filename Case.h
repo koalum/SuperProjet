@@ -39,6 +39,7 @@ class Case {
       void voie();
       void mortAleatoire();
       void deversement(Individu indi);
+      void reinitialisation(float Ainit);
  
 };
 

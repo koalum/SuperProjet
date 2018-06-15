@@ -66,5 +66,11 @@ void Case::deversement(Individu indi){
    cExtra_ =newExtra;
 }
 
+void Case::reinitialisation(float Ainit){
+   Metabolite metA2(0.1,'A',Ainit);
+   Metabolite metB2(0.1,'B',.0);
+   Metabolite metC2(0.1,'C',.0);
+   cExtra_ = {metA2,metB2,metC2};
+}
 
       

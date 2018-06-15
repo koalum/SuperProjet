@@ -10,18 +10,22 @@ const float Grille::D=0.1;
 
 //Constructors
 
-Grille::Grille () {
+Grille::Grille (float Ainit) {
+   float Ainit_ = Ainit;
    myGrid_.reserve(W_);
    nbS_=int((H_*W_)/2);
    nbL_=int((H_*W_)/2);
+   nbMorts_ = 0;
+   int nombreS = nbS_ ;
+   int nombreL = nbL_ ;
    Metabolite metA(0.1,'A',.0);
    Metabolite metB(0.1,'B',.0);
    Metabolite metC(0.1,'C',.0);
-   vector<Metabolite>vec1 = {metA, metB, metC};
-   Metabolite metA2(0.1,'A',20.0);
+   vector<Metabolite>vec1 = {metA, metB, metC}; //vecteur de métabolite de l'individu de la case
+   Metabolite metA2(0.1,'A',Ainit);
    Metabolite metB2(0.1,'B',.0);
    Metabolite metC2(0.1,'C',.0);
-   vector<Metabolite>vecExtra = {metA2,metB2,metC2};
+   vector<Metabolite>vecExtra = {metA2,metB2,metC2}; //vecteur de metabolites dans la case au temps 0
    Individu indi;
    float nbAleatoire = 0;
    srand(time(NULL));
@@ -30,18 +34,18 @@ Grille::Grille () {
       for(int j=0; j<W_; ++j){
          if(nbS_==0){   
             indi=Individu("Ga", vec1);
-            nbL_ = nbL_-1;
+            nombreL = nombreL-1;
          } else if(nbL_==0){
             indi=Individu("Gb", vec1);
-            nbS_ = nbS_-1;
+            nombreS = nombreS-1;
          } else {
             nbAleatoire = (float)rand() / (float)RAND_MAX;
             if (nbAleatoire >0.5){
                indi=Individu("Ga", vec1);
-               nbL_ = nbL_-1;
+               nombreL = nombreL-1;
             } else {
                indi=Individu("Gb", vec1);
-               nbS_ = nbS_-1;
+               nombreS = nombreS-1;
             }
          }
          vecCase.push_back(Case(i,j,indi,vecExtra));
@@ -83,6 +87,18 @@ void Grille::afficheGrille(){
          cout<<i<<endl;
       }  
    }*/
+
+int Grille::nbS(){
+   return nbS_;
+}
+
+int Grille::nbL(){
+   return nbL_;
+}
+
+int Grille::nbMorts(){
+   return nbMorts_;
+}
 
 void Grille::diffusionGenerale(){
    for(int i=0; i<H_; i++){
@@ -191,7 +207,7 @@ void Grille::competition(int x, int y){
       Individu indiFille = myGrid_[alpha][beta].indi();
       indiFille.phenotypeFille();
       indiFille.mutation();
-      myGrid_[alpha][beta].individu(indiFille); //point vers le même truc
+      myGrid_[alpha][beta].individu(indiFille); //pointent vers le même truc
       myGrid_[x][y].individu(indiFille);
       myGrid_[x][y].vivant(true);
    }
@@ -204,6 +220,42 @@ void Grille::reseauMetaboliqueGenerale(){
             myGrid_[i][j].voie();
          }
       }
+   }
+}
+
+void Grille::count(){
+   nbS_ = 0;
+   nbL_ = 0;
+   for(int i=0; i<H_; i++){
+      for(int j=0; j<W_; j++){ 
+         Case maCase = myGrid_[i][j];
+         Individu indi = maCase.indi();
+            if(maCase.vivant() == false){
+               nbMorts_ +=1;
+            }
+            else {
+               if(indi.genotype() == "Ga"){
+                  nbL_ +=1;
+               }
+               else {
+                  nbS_ +=1;
+               }
+            }
+      }
+   }
+}
+
+void Grille::reinitialisationGenerale(){
+   for(int i=0; i<H_; i++){
+      for(int j=0; j<W_; j++){  
+         myGrid_[i][j].reinitialisation(Ainit_);
+      }
+   }
+}
+
+void Grille::simulation(int T){
+   for (int i=0; i<500; ++i){
+      grille1.pasDeTemps();   
    }
 }
 

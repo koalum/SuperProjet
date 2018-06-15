@@ -7,8 +7,8 @@ const float Individu::Raa_=0.1;
 const float Individu::Rab_=0.1;
 const float Individu::Rbb_=0.1;
 const float Individu::Rbc_=0.1;
-const float Individu::pDeath_=0.2;
-const float Individu::pMut=0.5;
+const float Individu::pDeath_=0.02;
+const float Individu::pMut=0.0;
 const float Individu::fitnessMIN=0.001;
 
 //Constructors
