@@ -32,16 +32,24 @@ void Case::individu(Individu indi){
    indi_=indi;
 }
 
+void Case::cExtra(vector<Metabolite> cExt){
+   cExtra_ = cExt;
+}
+
 //Méthodes
 
 void Case::voie(){
    if (indi_.genotype()=="Ga"){
       indi_.reseauMetabolite(cExtra_[0].concentration());
-      cExtra_[0].concentration(-cExtra_[0].concentration()*indi_.Raa());
+      float dAout = -cExtra_[0].concentration()*indi_.Raa();
+      float Aout = cExtra_[0].concentration();
+      cExtra_[0].concentration(dAout + Aout);
    } 
    else if(indi_.genotype()=="Gb") {
       indi_.reseauMetabolite(cExtra_[1].concentration());
-      cExtra_[1].concentration(-cExtra_[1].concentration()*indi_.Rab());
+      float dBout = -cExtra_[1].concentration()*indi_.Rab();
+      float Bout = cExtra_[1].concentration();
+      cExtra_[1].concentration(dBout + Bout);
    }
 }
 
@@ -67,10 +75,11 @@ void Case::deversement(Individu indi){
 }
 
 void Case::reinitialisation(float Ainit){
-   Metabolite metA2(0.1,'A',Ainit);
+   Metabolite metA2(0.1,'A',50.0);
    Metabolite metB2(0.1,'B',.0);
    Metabolite metC2(0.1,'C',.0);
-   cExtra_ = {metA2,metB2,metC2};
+   vector<Metabolite>newExtra = {metA2, metB2, metC2};
+   cExtra_ = newExtra;
 }
 
       

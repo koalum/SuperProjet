@@ -4,14 +4,14 @@
 using namespace std;
 //ceci est un commentaire
 
-const int Grille::W_=10;
-const int Grille::H_=10;
+const int Grille::W_=32;
+const int Grille::H_=32;
 const float Grille::D=0.1;
 
 //Constructors
 
 Grille::Grille (float Ainit) {
-   float Ainit_ = Ainit;
+   Ainit_ = Ainit;
    myGrid_.reserve(W_);
    nbS_=int((H_*W_)/2);
    nbL_=int((H_*W_)/2);
@@ -51,7 +51,7 @@ Grille::Grille (float Ainit) {
          vecCase.push_back(Case(i,j,indi,vecExtra));
       }
       myGrid_.push_back(vecCase);
-   }  
+   } 
 }
 
 //Méthodes
@@ -88,6 +88,8 @@ void Grille::afficheGrille(){
       }  
    }*/
 
+//Getters
+
 int Grille::nbS(){
    return nbS_;
 }
@@ -99,6 +101,20 @@ int Grille::nbL(){
 int Grille::nbMorts(){
    return nbMorts_;
 }
+
+vector<vector<Case>> Grille::myGrid(){
+   return myGrid_;
+}
+
+float Grille::Ainit(){
+   return Ainit_;
+}
+
+char Grille::resultats(){
+   return resultats_;
+}
+
+//METHODES
 
 void Grille::diffusionGenerale(){
    for(int i=0; i<H_; i++){
@@ -116,7 +132,7 @@ void Grille::diffusion(int x,int y){
       for (int j=0; j<3; j++){
          for (int k=0; k<3; k++){
             int a = x+i-1;
-            int b = y=j-1;
+            int b = y+j-1;
             if (a<0){
               a = H_-1;
             }
@@ -137,6 +153,7 @@ void Grille::diffusion(int x,int y){
    for (int k=0; k<3; k++){
       metanew[k].concentration(metanew[k].concentration()-9*D*meta[k].concentration());
    }
+   myGrid_[x][y].cExtra(metanew);
 }
 
 void Grille::pasDeTemps(){
@@ -155,7 +172,7 @@ void Grille::mortAleatoireGenerale(){
 }
    
 void Grille::competitionGenerale(){ 
-   vector<struct celluleMorte_>cellulesMortes;
+   vector<struct celluleMorte_>cellulesMortes; //Vector de coordonnées des cellules mortes
    struct celluleMorte_ maCelluleMorte;
    for(int i=0; i<H_; i++){
       for(int j=0; j<W_; j++){ 
@@ -181,7 +198,7 @@ void Grille::competition(int x, int y){
    for (int i=0; i<3; i++){
       for (int j=0; j<3; j++){
          int a = x+i-1;
-         int b = y=j-1;
+         int b = y+j-1;
          if (a<0){
             a = H_-1;
          }
@@ -203,7 +220,7 @@ void Grille::competition(int x, int y){
          }
       }
    }
-   if (test){
+   if (test){ //Si il y a au moins 1 vivant autour
       Individu indiFille = myGrid_[alpha][beta].indi();
       indiFille.phenotypeFille();
       indiFille.mutation();
@@ -243,6 +260,23 @@ void Grille::count(){
             }
       }
    }
+   if(nbS_ == 0 && nbL_ == 0){
+      cout<<"Extinction"<<endl;
+      resultats_ = 'E';
+   }
+   else if (nbS_ == 0 ){
+      cout<<"Exclusion S"<<endl;
+      resultats_ = 'L'; //Il ne reste que des L
+   }
+   else if (nbL_ == 0 ){
+      cout<<"Exclusion L"<<endl;
+      resultats_ = 'S'; //Il ne reste que des S
+   }
+   else {
+      cout<<"Cohabitation"<<endl;
+      resultats_ = 'C';
+   }
+
 }
 
 void Grille::reinitialisationGenerale(){
@@ -254,8 +288,16 @@ void Grille::reinitialisationGenerale(){
 }
 
 void Grille::simulation(int T){
-   for (int i=0; i<500; ++i){
-      grille1.pasDeTemps();   
+   int i = 0;
+   while (i<100){ 
+      pasDeTemps();
+      if(i%T==0){
+         reinitialisationGenerale();  
+      }
+      i++;
+
    }
 }
+
+
 

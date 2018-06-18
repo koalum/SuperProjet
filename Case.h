@@ -34,6 +34,7 @@ class Case {
    //Setters
       void vivant(bool viv);
       void individu(Individu indi);
+      void cExtra(vector<Metabolite> cExt);
 
    //Methods
       void voie();

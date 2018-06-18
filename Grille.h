@@ -24,13 +24,13 @@ class Grille {
       int nbL_;
       int nbMorts_;
       float Ainit_;
-      struct celluleMorte_{
+      struct celluleMorte_{ //Coordonées des cellules mortes
          int x;
          int y;
       };
+      char resultats_; //pour la récupération des données
 
    public :
-
    //Constructors
       Grille(float Ainit);
 
@@ -38,6 +38,9 @@ class Grille {
       int nbS();
       int nbL();
       int nbMorts();
+      vector<vector<Case>>myGrid();
+      float Ainit();
+      char resultats();
 
    //Setters
 

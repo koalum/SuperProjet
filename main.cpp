@@ -4,6 +4,8 @@
 #include "Case.h"
 #include "Grille.h"
 #include <algorithm>
+#include <fstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -12,7 +14,7 @@ int main() {
    //TESTS
 
    //TEST INDIVIDU
-   cout<<"notre super projet avance trop bien!"<<endl;
+   cout<<"notre super projet avance !"<<endl;
    Metabolite metA(0.1,'A',25.0);
    Metabolite metB(0.1,'B',-20.0);
    Metabolite metC(0.1,'C',0.0);
@@ -46,23 +48,22 @@ int main() {
    cout <<"B dans indi : "<<monVecPhen2[1].concentration()<<endl;
    cout <<"C dans indi : "<<monVecPhen2[2].concentration()<<endl;*/
 
+/*
 
    //TEST GRILLE
    cout <<"TEST GRILLE: "<< endl;
-   Grille grille1 = Grille(20.0);
+   Grille grille1 = Grille(50.0);
    grille1.afficheGrille();
 
    //TEST DIFFUSION
    
-   for (int i=0; i<500; ++i){
-      grille1.pasDeTemps();   
-   }
+   grille1.simulation(1000);
    cout <<" "<< endl;
    grille1.afficheGrille();
    grille1.count();
-   cout<<grille1.nbS()<<endl;
-   cout<<grille1.nbL()<<endl;
-   cout<<grille1.nbMorts()<<endl;
+   cout<<"S : " <<grille1.nbS()<<endl;
+   cout<<"L : "<<grille1.nbL()<<endl;
+   cout<<"X : "<<grille1.nbMorts()<<endl;
 
    /*A FAIRE :
    Commenter le code
@@ -72,8 +73,44 @@ int main() {
    récupération données
 
    */
-   
 
+//TEST RUN
+   cout <<"TEST RUN: "<< endl;
+   float Ainit = 50.0;
+   int T = 1500;
+   ofstream myfile;
+   myfile.open ("test.txt");
+   for (int i=0; i<=Ainit; i=i+50){
+      for(int j=1; j<=T; j=j+1499){
+         Grille grille1 = Grille((float)(i));
+         grille1.simulation(j);
+
+         cout<<"Ainit = "<<i<<endl;
+         cout<<"Changement tous les :" <<j<<endl;
+         grille1.count();
+         cout<<"S : " <<grille1.nbS()<<endl;
+         cout<<"L : "<<grille1.nbL()<<endl;
+         cout<<"X : "<<grille1.nbMorts()<<endl;
+         myfile << left <<"\t"<< setw(10) << i << left <<"\t"<< setw(10) << j << left <<"\t"<< setw(10) <<grille1.resultats()<<endl;
+      }
+   }
+   myfile.close();
+
+/*Grille grille1 = Grille(30.0);
+    float temps;
+    clock_t t1, t2;
+ 
+    t1 = clock();
+grille1.simulation(200);
+grille1.count();
+    t2 = clock();
+    temps = (float)(t2-t1)/CLOCKS_PER_SEC;
+    printf("temps = %f\n", temps);*/
+
+
+
+   
+   
    return 0;
 }
 

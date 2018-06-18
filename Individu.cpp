@@ -16,6 +16,7 @@ Individu::Individu(){
    genotype_ = "Ga";
    Metabolite met;
    phenotype_={met, met, met};
+   fitness_ = phenotype_[1].concentration();
 }
 
 Individu::Individu(string genotype,vector<Metabolite>phenotype):genotype_(genotype),phenotype_(phenotype){
@@ -74,7 +75,6 @@ void Individu::setFitness(float w){
 void Individu::mutation(){
    float nbAleatoire = 0;
    nbAleatoire = (float)rand() / (float)RAND_MAX;
-   cout<<nbAleatoire<<endl;
    if (nbAleatoire<pMut){
       if (genotype_=="Ga"){
          genotype_="Gb";
@@ -88,12 +88,22 @@ void Individu::mutation(){
 
 void Individu::reseauMetabolite(float out){
   if (genotype_=="Ga"){
-      phenotype_[0].concentration(out*Raa_ - phenotype_[0].concentration()*Rab_);
-      phenotype_[1].concentration(phenotype_[0].concentration()*Rab_);
+      float dA = out*Raa_ - phenotype_[0].concentration()*Rab_;
+      float A = phenotype_[0].concentration();
+      float dB = phenotype_[0].concentration()*Rab_;
+      float B = phenotype_[1].concentration();
+      phenotype_[0].concentration(dA + A); //dA + A
+      phenotype_[1].concentration(dB + B);  //dB + B
+      setFitness(phenotype_[0].concentration());
    }
    else {
-      phenotype_[1].concentration(out*Rbb_ - phenotype_[1].concentration()*Rbc_);
-      phenotype_[2].concentration(phenotype_[1].concentration()*Rbc_);
+      float dB = out*Rbb_ - phenotype_[1].concentration()*Rbc_;
+      float B = phenotype_[0].concentration();
+      float dC = phenotype_[1].concentration()*Rbc_;
+      float C = phenotype_[1].concentration();
+      phenotype_[1].concentration(dB + B);
+      phenotype_[2].concentration(dC + C);
+      setFitness(phenotype_[1].concentration());
    }
 }
 
