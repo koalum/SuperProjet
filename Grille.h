@@ -28,7 +28,7 @@ class Grille {
          int x;
          int y;
       };
-      char resultats_; //pour la récupération des données
+      int resultats_; //pour la récupération des données
 
    public :
    //Constructors
@@ -40,7 +40,7 @@ class Grille {
       int nbMorts();
       vector<vector<Case>>myGrid();
       float Ainit();
-      char resultats();
+      int resultats();
 
    //Setters
 

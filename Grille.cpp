@@ -110,7 +110,7 @@ float Grille::Ainit(){
    return Ainit_;
 }
 
-char Grille::resultats(){
+int Grille::resultats(){
    return resultats_;
 }
 
@@ -262,19 +262,19 @@ void Grille::count(){
    }
    if(nbS_ == 0 && nbL_ == 0){
       cout<<"Extinction"<<endl;
-      resultats_ = 'E';
+      resultats_ = 0;
    }
    else if (nbS_ == 0 ){
       cout<<"Exclusion S"<<endl;
-      resultats_ = 'L'; //Il ne reste que des L
+      resultats_ = 1; //Il ne reste que des L
    }
    else if (nbL_ == 0 ){
       cout<<"Exclusion L"<<endl;
-      resultats_ = 'S'; //Il ne reste que des S
+      resultats_ = 2; //Il ne reste que des S
    }
    else {
       cout<<"Cohabitation"<<endl;
-      resultats_ = 'C';
+      resultats_ = 3;
    }
 
 }
@@ -289,7 +289,7 @@ void Grille::reinitialisationGenerale(){
 
 void Grille::simulation(int T){
    int i = 0;
-   while (i<100){ 
+   while (i<5000){ 
       pasDeTemps();
       if(i%T==0){
          reinitialisationGenerale();  
