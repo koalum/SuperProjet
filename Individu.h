@@ -1,20 +1,36 @@
+/******************************************************
+
+                  | INCLUDES |
+
+*******************************************************/
+
 #ifndef INDIVIDU_H
 #define INDIVIDU_H
 #include <string>
 #include"Metabolite.h"
 #include <vector>
 using namespace std;
-//Commentaire de Juliette
+
+
+/******************************************************
+
+                  | INDIVIDU |
+
+*******************************************************/
+
 
 class Individu {
-
-//commentaire Kaodi
    
    private :
 
    protected : 
 
-   //Attributs
+
+/******************************************************
+
+                  | ATTRIBUTS |
+
+*******************************************************/
 
       static const float Raa_;
       static const float Rab_;
@@ -30,27 +46,54 @@ class Individu {
 
    public :
 
-   //Constructors
+/******************************************************
+
+                  | CONSTRUCTEURS|
+
+*******************************************************/
+
+      //PAR DEFAUT
       Individu();
+
+      //PAR COPIE
       Individu(string genotype,vector<Metabolite>phenotype_);
 
-   //Destructors
-      //~Individu();
 
-   //Getters
+
+/******************************************************
+
+                  | GETTERS |
+
+*******************************************************/
+      
       string genotype();
       vector<Metabolite> phenotype();
+
+      //TAUX METABOLIQUES
       float Raa() const;
       float Rab() const;
       float Rbb() const;
       float Rbc() const;
+
       float fitness();
       float pDeath() const;
 
-   //Setters
+
+/******************************************************
+
+                  | SETTERS |
+
+*******************************************************/
+      
       void setFitness(float w);     
 
-   //Methods
+
+/******************************************************
+
+                  | METHODES |
+
+*******************************************************/
+      
       void mutation();
       void reseauMetabolite(float out);
       void seuilMinimum();

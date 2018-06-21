@@ -1,8 +1,20 @@
+/******************************************************
+
+                  | INCLUDES |
+
+*******************************************************/
+
 #ifndef CASE_H
 #define CASE_H
 #include <string>
 #include "Individu.h"
 using namespace std;
+
+/******************************************************
+
+                  | CASE |
+
+*******************************************************/
 
 class Case {
    
@@ -10,33 +22,56 @@ class Case {
 
    protected : 
 
-   //Attributs
+/******************************************************
+
+                  | ATTRIBUTS |
+
+*******************************************************/
 
       int x_;
       int y_;
-      bool vivant_; //false si l'individu meurt
+      bool vivant_; //boolean qui est false si l'individu est mort
       Individu indi_; 
-      vector<Metabolite> cExtra_; //vecteur des concentration des métabolites, c[0]=A, c[1]=B, c[2]=C
+      vector<Metabolite> cExtra_; //vecteur des concentration des métabolites dans une case, c[0]=A : concentration en glucose, c[1]=B : concentration en acétate, c[2]=C : concentration en éthanol
 
    public :
 
-   //Constructors
-      Case(int x, int y, Individu indi, vector<Metabolite> cExtra);
+/******************************************************
 
-   //Destructors
-      //~Case();
+                  | CONSTRUCTEURS |
 
-   //Getters
-      vector<Metabolite> cExtra();
+*******************************************************/
+
+     //PAR DEFAUT
+     Case(int x, int y, Individu indi, vector<Metabolite> cExtra);
+
+
+/******************************************************
+
+                  | GETTERS |
+
+*******************************************************/
+
+      vector<Metabolite> cExtra(); 
       Individu indi();
       bool vivant();
 
-   //Setters
+
+/******************************************************
+
+                  | SETTERS |
+
+*******************************************************/
+
       void vivant(bool viv);
       void individu(Individu indi);
       void cExtra(vector<Metabolite> cExt);
 
-   //Methods
+/******************************************************
+
+                  | METHODES |
+
+*******************************************************/
       void voie();
       void mortAleatoire();
       void deversement(Individu indi);

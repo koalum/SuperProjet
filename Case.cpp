@@ -1,15 +1,30 @@
+/******************************************************
+
+                  | INCLUDES |
+
+*******************************************************/
 #include"Case.h"
 #include <iostream>
 #include <time.h>
 using namespace std;
 
 
-//Constructors
+/******************************************************
+
+                  | CONSTRUCTEURS |
+
+*******************************************************/
+
 Case::Case(int x, int y, Individu indi, vector<Metabolite> cExtra):x_(x),y_(y),indi_(indi),cExtra_(cExtra){
   vivant_ = true;
 }
 
-//Getters
+/******************************************************
+
+                  | GETTERS |
+
+*******************************************************/
+
 vector<Metabolite> Case::cExtra(){
    return cExtra_;
 }
@@ -22,7 +37,11 @@ bool Case::vivant(){
    return vivant_;
 }
 
-//Setters
+/******************************************************
+
+                  | SETTERS |
+
+*******************************************************/
 
 void Case::vivant(bool viv){
    vivant_ = viv;
@@ -36,7 +55,18 @@ void Case::cExtra(vector<Metabolite> cExt){
    cExtra_ = cExt;
 }
 
-//Méthodes
+/******************************************************
+
+                  | METHODES |
+
+*******************************************************/
+
+//VOIE
+
+/*Méthode qui décrit le réseau métabolique et les échanges par les voies métaboliques à l'exterieur de l'individu
+
+Préconditions : l'individu doit être vivant
+Postconditions : la concentration en métabolite de la case où l'individu se trouve, change au cours du temps*/
 
 void Case::voie(){
    if (indi_.genotype()=="Ga"){
@@ -53,14 +83,31 @@ void Case::voie(){
    }
 }
 
+
+//MORT ALEATOIRE
+
+/*Méthode qui permet aux individus de mourir avec une probabilité PDeath
+On crée un nombre aleatoire entre 0 et 1, si ce nombre aléatoire est inférieur à la probabilité de mort, 
+l'individu meurt
+
+Préconditions : l'individu doit être vivant
+Postconditions : si l'individu meurt, le boolean vivant passe de true a false et son contenu est déversé dans la case*/
+
 void Case::mortAleatoire(){
    float nbAleatoire = 0;
    nbAleatoire = (float)rand() / (float)RAND_MAX;
    if (nbAleatoire<indi_.pDeath()){
       vivant_ = false;
-      deversement(indi_);//déversement
+      deversement(indi_);
    }
 }
+
+//DEVERSEMENT
+
+/*Méthode qui permet aux individus de déverser les métabolites contenues lors de leur mort
+
+Préconditions : l'individu vient de mourir
+Postconditions : les concentrations en métabolites de la case contenant l'individu mort changent*/
 
 void Case::deversement(Individu indi){
    Metabolite meta1 = Metabolite();
@@ -74,6 +121,13 @@ void Case::deversement(Individu indi){
    cExtra_ =newExtra;
 }
 
+//REINITIALISATION
+
+/*Méthode qui permet de reinitialiser l'environnement tout les T pas de temps
+
+Préconditions : aucune
+Postconditions : chaque fois que cette méthode appelée toutes les concentrations de la case sont remises à zero,
+                 une concentration en glucose Ainit est introduite*/
 void Case::reinitialisation(float Ainit){
    Metabolite metA2(0.1,'A',50.0);
    Metabolite metB2(0.1,'B',.0);

@@ -1,3 +1,8 @@
+/******************************************************
+
+                  | INCLUDES |
+
+*******************************************************/
 #ifndef GRILLE_H
 #define GRILLE_H
 #include <string>
@@ -8,43 +13,71 @@
 #include <algorithm>
 using namespace std;
 
+/******************************************************
+
+                  | GRILLE |
+
+*******************************************************/
 class Grille {
    
    private :
 
    protected : 
 
-   //Attributs
+/******************************************************
 
-      static const int W_;
-      static const int H_;
-      static const float D;
+                  | ATTRIBUTS |
+
+*******************************************************/
+
+      static const int W_; //largeur grille
+      static const int H_; //hauteur grille
+      static const float D; //constante de diffusivité
       vector<vector<Case>>myGrid_;
       int nbS_; //nombre d'individus S
-      int nbL_;
+      int nbL_; //nombre d'individus L
       int nbMorts_;
       float Ainit_;
       struct celluleMorte_{ //Coordonées des cellules mortes
          int x;
          int y;
       };
-      int resultats_; //pour la récupération des données
+      int resultats_; //variable pour la récupération des données
 
    public :
-   //Constructors
+
+/******************************************************
+
+                  | CONSTRUCTEURS |
+
+*******************************************************/
+
       Grille(float Ainit);
 
-   //Getters
+/******************************************************
+
+                  | GETTERS |
+
+*******************************************************/
       int nbS();
       int nbL();
       int nbMorts();
-      vector<vector<Case>>myGrid();
+      vector<vector<Case>>myGrid(); //recuperer une case
       float Ainit();
       int resultats();
 
-   //Setters
+/******************************************************
 
-   //Methods
+                  | SETTERS |
+
+*******************************************************/
+
+/******************************************************
+
+                  | METHODES |
+
+*******************************************************/
+
       void afficheGrille();
       void diffusionGenerale();
       void diffusion(int x,int y);

@@ -1,18 +1,33 @@
+/******************************************************
+
+                  | INCLUDES |
+
+*******************************************************/
 #include"Grille.h"
 #include <iostream>
 #include <time.h>
 using namespace std;
-//ceci est un commentaire
+
+/******************************************************
+
+                  | ATTRIBUTS CONSTANTS |
+
+*******************************************************/
 
 const int Grille::W_=32;
 const int Grille::H_=32;
 const float Grille::D=0.1;
 
-//Constructors
+/******************************************************
+
+                  | CONSTRUCTEURS|
+
+*******************************************************/
 
 Grille::Grille (float Ainit) {
    Ainit_ = Ainit;
    myGrid_.reserve(W_);
+   myGrid_.reserve(H_);
    nbS_=int((H_*W_)/2);
    nbL_=int((H_*W_)/2);
    nbMorts_ = 0;
@@ -21,13 +36,13 @@ Grille::Grille (float Ainit) {
    Metabolite metA(0.1,'A',.0);
    Metabolite metB(0.1,'B',.0);
    Metabolite metC(0.1,'C',.0);
-   vector<Metabolite>vec1 = {metA, metB, metC}; //vecteur de métabolite de l'individu de la case
+   vector<Metabolite>vec1 = {metA, metB, metC}; //vecteur de métabolites de l'individu de la case
    Metabolite metA2(0.1,'A',Ainit);
    Metabolite metB2(0.1,'B',.0);
    Metabolite metC2(0.1,'C',.0);
-   vector<Metabolite>vecExtra = {metA2,metB2,metC2}; //vecteur de metabolites dans la case au temps 0
+   vector<Metabolite>vecExtra = {metA2,metB2,metC2}; //vecteur de metabolitess dans la case au temps 0
    Individu indi;
-   float nbAleatoire = 0;
+   float nbAleatoire = 0; //remplissage aléatoire de la grille
    srand(time(NULL));
    for(int i=0; i<H_; ++i){
       vector<Case>vecCase; 
@@ -54,41 +69,12 @@ Grille::Grille (float Ainit) {
    } 
 }
 
-//Méthodes
-void Grille::afficheGrille(){
-   Individu indi;
-   for(int i=0; i<H_; ++i){
-      for(int j=0; j<W_; ++j){
-         indi = myGrid_[i][j].indi();
-         if (myGrid_[i][j].vivant()){
-            if (indi.genotype()=="Ga"){
-               cout<<"L ";
-            } else {
-               cout <<"S ";
-            }
-         }
-         else{
-            cout<<"X ";
-         }
-      }  
-      cout<<" "<<endl;
-   }
-}
 
-   //AUTRE SOLUTION AVEC ITERATEUR
-   /*int iter;
-   for(int i=0; i<H_; ++i){
-      for (vector<Case>::const_iterator iter = myGrid_[i].begin(); iter != myGrid_[i].end(); ++iter){
-         Case macase = *iter;
-         Individu indi = macase.indi();
-         string gen = indi.genotype();
-         cout<<gen<<endl;
-         cout<<"OK"<<endl;
-         cout<<i<<endl;
-      }  
-   }*/
+/******************************************************
 
-//Getters
+                  | GETTERS |
+
+*******************************************************/
 
 int Grille::nbS(){
    return nbS_;
@@ -114,7 +100,41 @@ int Grille::resultats(){
    return resultats_;
 }
 
-//METHODES
+
+/******************************************************
+
+                  | METHODES |
+
+*******************************************************/
+
+//AFFICHE GRILLE
+
+/*Méthode d'affichage de la grille*/
+void Grille::afficheGrille(){
+   Individu indi;
+   for(int i=0; i<H_; ++i){
+      for(int j=0; j<W_; ++j){
+         indi = myGrid_[i][j].indi();
+         if (myGrid_[i][j].vivant()){
+            if (indi.genotype()=="Ga"){
+               cout<<"L ";
+            } else {
+               cout <<"S ";
+            }
+         }
+         else{
+            cout<<"X ";
+         }
+      }  
+      cout<<" "<<endl;
+   }
+}
+
+
+//DIFFUSION GENERALE
+
+/*Méthode qui parcourt la grille et applique la méthode diffusion*/
+
 
 void Grille::diffusionGenerale(){
    for(int i=0; i<H_; i++){
@@ -123,6 +143,13 @@ void Grille::diffusionGenerale(){
       }
    }
 }
+
+//DIFFUSION
+
+/*Méthode qui décrit le processus de diffusion selon l'algorithme donné
+
+Préconditions : la diffusion doit être D<0.1
+Postconditions : les métabolites se diffusent dans la case*/
 
 void Grille::diffusion(int x,int y){
    vector<Metabolite>meta = myGrid_[x][y].cExtra();
@@ -156,13 +183,11 @@ void Grille::diffusion(int x,int y){
    myGrid_[x][y].cExtra(metanew);
 }
 
-void Grille::pasDeTemps(){
-  diffusionGenerale(); 
-  mortAleatoireGenerale();
-  competitionGenerale();
-  reseauMetaboliqueGenerale(); 
-}
-   
+//MORT ALEATOIRE GENERALE
+
+/*Méthode qui parcourt la grille et applique la méthode mortAleatoire à chaque Case*/
+
+
 void Grille::mortAleatoireGenerale(){ 
    for(int i=0; i<H_; i++){
       for(int j=0; j<W_; j++){
@@ -170,25 +195,13 @@ void Grille::mortAleatoireGenerale(){
       }
    }
 }
-   
-void Grille::competitionGenerale(){ 
-   vector<struct celluleMorte_>cellulesMortes; //Vector de coordonnées des cellules mortes
-   struct celluleMorte_ maCelluleMorte;
-   for(int i=0; i<H_; i++){
-      for(int j=0; j<W_; j++){ 
-         Case maCase = myGrid_[i][j];  
-         if (maCase.vivant()==false){
-            maCelluleMorte.x = i;
-            maCelluleMorte.y = j;
-            cellulesMortes.push_back(maCelluleMorte);
-         }
-      }
-   }
-   random_shuffle(cellulesMortes.begin(), cellulesMortes.end());
-   for(vector<struct celluleMorte_>::iterator it=cellulesMortes.begin(); it!=cellulesMortes.end(); ++it){
-      competition(it->x, it->y);
-   }
-}
+
+//COMPETITION
+
+/*Méthode qui décrit la compétition entre individus lorsqu'au moins un individu d'une case voisine meurt
+
+Préconditions : un individu doit mourir pour que la méthode soit appliquée
+Postconditions : l'individu avec la meilleure fitness occupe la case libre et se divise en deux cellules filles */
 
 void Grille::competition(int x, int y){
    float bestFitness = .0;
@@ -224,11 +237,37 @@ void Grille::competition(int x, int y){
       Individu indiFille = myGrid_[alpha][beta].indi();
       indiFille.phenotypeFille();
       indiFille.mutation();
-      myGrid_[alpha][beta].individu(indiFille); //pointent vers le même truc
+      myGrid_[alpha][beta].individu(indiFille); 
       myGrid_[x][y].individu(indiFille);
       myGrid_[x][y].vivant(true);
    }
 }
+//COMPETITION GENERALE
+
+/*Méthode qui parcourt la grille et applique la méthode de competition à chaque case*/
+   
+void Grille::competitionGenerale(){ 
+   vector<struct celluleMorte_>cellulesMortes; //Vector de coordonnées des cellules mortes
+   struct celluleMorte_ maCelluleMorte;
+   for(int i=0; i<H_; i++){
+      for(int j=0; j<W_; j++){ 
+         Case maCase = myGrid_[i][j];  
+         if (maCase.vivant()==false){
+            maCelluleMorte.x = i;
+            maCelluleMorte.y = j;
+            cellulesMortes.push_back(maCelluleMorte);
+         }
+      }
+   }
+   random_shuffle(cellulesMortes.begin(), cellulesMortes.end());
+   for(vector<struct celluleMorte_>::iterator it=cellulesMortes.begin(); it!=cellulesMortes.end(); ++it){
+      competition(it->x, it->y);
+   }
+}
+
+//RESEAU METABOLIQUE GENERALE
+
+/*Méthode qui parcourt la grille et applique la méthode voie()*/
 
 void Grille::reseauMetaboliqueGenerale(){ 
    for(int i=0; i<H_; i++){
@@ -239,6 +278,14 @@ void Grille::reseauMetaboliqueGenerale(){
       }
    }
 }
+
+
+//COUNT
+
+/*Méthode qui compte le nombre d'individus L et S et qui renvoie l'état d'équilibre du système
+
+Préconditions : un individu doit mourir pour que la méthode soit appliquée
+Postconditions : l'individu avec la meilleure fitness occupe la case libre et se divise en deux cellules filles */
 
 void Grille::count(){
    nbS_ = 0;
@@ -262,7 +309,7 @@ void Grille::count(){
    }
    if(nbS_ == 0 && nbL_ == 0){
       cout<<"Extinction"<<endl;
-      resultats_ = 0;
+      resultats_ = 0; //Il ne reste ni de L ni de S
    }
    else if (nbS_ == 0 ){
       cout<<"Exclusion S"<<endl;
@@ -274,10 +321,17 @@ void Grille::count(){
    }
    else {
       cout<<"Cohabitation"<<endl;
-      resultats_ = 3;
+      resultats_ = 3; //Il reste des individus S et L
    }
 
 }
+
+//REINITIALISATION GENERALE
+
+/*Méthode qui parcourt la grille et applique la méthode de réinitialisation à chaque case
+
+Préconditions : aucune
+Postconditions : la grille est reinitialisée avec une concentration Ainit*/
 
 void Grille::reinitialisationGenerale(){
    for(int i=0; i<H_; i++){
@@ -286,6 +340,27 @@ void Grille::reinitialisationGenerale(){
       }
    }
 }
+
+//PAS DE TEMPS
+
+/*Méthode qui décrit l'algorithme évolutif à chaque pas de temps de la simulation
+
+Préconditions : aucune
+Postconditions : on applique les 4 méthodes à la suite*/
+
+void Grille::pasDeTemps(){
+  diffusionGenerale(); 
+  mortAleatoireGenerale();
+  competitionGenerale();
+  reseauMetaboliqueGenerale(); 
+}
+   
+//SIMULATION
+
+/*Méthode qui reinitialise le système à chaque pas de temps
+
+Préconditions : aucune
+Postconditions : une simulation dure 5000 itérations*/
 
 void Grille::simulation(int T){
    int i = 0;

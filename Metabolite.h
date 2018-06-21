@@ -1,7 +1,19 @@
+/******************************************************
+
+                  | INCLUDES |
+
+*******************************************************/
+
 #ifndef METABOLITE_H
 #define METABOLITE_H
 #include <string>
 using namespace std;
+
+/******************************************************
+
+                  | METABOLITE |
+
+*******************************************************/
 
 class Metabolite {
    
@@ -9,27 +21,24 @@ class Metabolite {
 
    protected : 
 
-   //Attributs
+   //ATTRIBUTS
 
-      float D_;
-      char type_;
-      float concentration_;
+      float D_; //Coefficient de diffusivité
+      char type_; //Type de métabolite diffusé. A : Glucose, B : acétate, C : éthanol.
+      float concentration_; 
 
    public :
 
-   //Constructors
-      Metabolite(float D, char type, float concentration);
+   //CONSTRUCTEURS
       Metabolite();
+      Metabolite(float D, char type, float concentration);
 
-   //Destructors
-      //~Metabolite();
 
-   //Getters
+   //GETTERS
       float concentration();
-   //Setters
-      void concentration(float concentration);
 
-   //Methods
+   //SETTERS
+      void concentration(float concentration);
  
 };
 
